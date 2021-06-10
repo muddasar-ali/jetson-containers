@@ -20,5 +20,4 @@ if [ $L4T_RELEASE -eq 32 ]; then
 		BASE_IMAGE=$BASE_DEVEL
 	fi
 fi
-	
 echo "l4t-base image:  $BASE_IMAGE"
