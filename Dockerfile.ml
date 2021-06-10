@@ -19,11 +19,12 @@
 # DEALINGS IN THE SOFTWARE.
 
 ARG BASE_IMAGE=nvcr.io/nvidia/l4t-base:r32.4.4
-ARG PYTORCH_IMAGE
+ARG PYTORCH_IMAGE     
+# =nvcr.io/nvidia/l4t-pytorch:r32.5.0-pth1.7-py3
 ARG TENSORFLOW_IMAGE
 
-FROM ${PYTORCH_IMAGE} as pytorch
 FROM ${TENSORFLOW_IMAGE} as tensorflow
+FROM ${PYTORCH_IMAGE} as pytorch
 FROM ${BASE_IMAGE}
 
 
@@ -146,7 +147,30 @@ RUN git clone https://github.com/NVlabs/cub opt/cub && \
 
 #RUN pip3 install cupy --verbose
 
+#
+#Libzmq installation
+#
 
+RUN apt-get update -y &&\
+    apt-get install -y libzmq3-dev &&\
+
+#
+#install unzipper for weights in tensorrtx
+#
+RUN apt-get install unzip 
+
+#
+#Tensorrtx Installation
+#
+
+RUN git clone https://github.com/muddasar-ali/tensorrtx.git && \
+    cd tensorrtx &&\
+    pip3 install -r requirements.txt &&\
+    unzip weights.zip &&\
+    cd build &&\
+    make &&\
+    ./yolov5 -s
+    
 #
 # JupyterLab
 #
