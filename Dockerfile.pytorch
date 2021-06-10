@@ -60,7 +60,7 @@ RUN wget --quiet --show-progress --progress=bar:force:noscroll --no-check-certif
 #
 # torchvision 0.4
 #
-ARG TORCHVISION_VERSION=v0.4.0
+ARG TORCHVISION_VERSION=v0.9.0
 ARG PILLOW_VERSION=pillow<7
 ARG TORCH_CUDA_ARCH_LIST="5.3;6.2;7.2"
 
@@ -98,11 +98,11 @@ RUN apt-get update && \
 RUN pip3 install scikit-build && \
     pip3 install ninja
     
-RUN git clone --recursive -b ${TORCHAUDIO_VERSION} https://github.com/pytorch/audio torchaudio && \
-    cd torchaudio && \
-    python3 setup.py install && \
-    cd ../ && \
-    rm -rf torchaudio
+#RUN git clone --recursive -b ${TORCHAUDIO_VERSION} https://github.com/pytorch/audio torchaudio && \
+#    cd torchaudio && \
+#    python3 setup.py install && \
+#    cd ../ && \
+#    rm -rf torchaudio
 
 
 #
@@ -113,6 +113,4 @@ ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
 RUN echo "$PATH" && echo "$LD_LIBRARY_PATH"
 
 RUN pip3 install pycuda six --verbose
-
-
 
