@@ -166,8 +166,9 @@ RUN apt-get install unzip
 RUN git clone https://github.com/muddasar-ali/tensorrtx.git && \
     cd tensorrtx/yolov5 &&\
     pip3 install -r requirements.txt &&\
-    unzip weights.zip &&\
-    cd build &&\
+    unzip weights.zip
+    
+RUN cd build &&\
     make &&\
     ./yolov5 -s
     
