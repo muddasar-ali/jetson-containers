@@ -152,7 +152,7 @@ RUN git clone https://github.com/NVlabs/cub opt/cub && \
 #
 
 RUN apt-get update -y &&\
-    apt-get install -y libzmq3-dev &&\
+    apt-get install -y libzmq3-dev 
 
 #
 #install unzipper for weights in tensorrtx
