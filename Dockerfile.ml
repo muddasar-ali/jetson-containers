@@ -161,17 +161,27 @@ RUN apt-get install unzip
 
 #
 #Tensorrtx Installation
-#
-
+#    
+   
 RUN git clone https://github.com/muddasar-ali/tensorrtx.git && \
     cd tensorrtx/yolov5 &&\
     pip3 install -r requirements.txt &&\
-    unzip weights.zip
-    
-RUN cd build &&\
+    unzip weights.zip &&\
+    cd build &&\
+    cmake .. &&\
     make &&\
     ./yolov5 -s
-    
+
+#
+#GSTREAMER INSTALLATION WITH GST-RSTP-SERVER
+#
+
+RUN apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-doc gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio && \
+        git clone git://anongit.freedesktop.org/gstreamer/gst-rtsp-server && \
+        cd gst-rtsp-server && \
+        git checkout remotes/origin/1.2 && \
+        ./autogen.sh --noconfigure && GST_PLUGINS_GOOD_DIR=$(pkg-config --variable=pluginsdir gstreamer-plugins-bad-1.0) ./configure && make
+
 #
 # JupyterLab
 #
