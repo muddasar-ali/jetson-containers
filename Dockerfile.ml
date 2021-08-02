@@ -183,6 +183,20 @@ RUN apt-get install -y libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-
         ./autogen.sh --noconfigure && GST_PLUGINS_GOOD_DIR=$(pkg-config --variable=pluginsdir gstreamer-plugins-bad-1.0) ./configure && make
 
 #
+#Installation of json-c
+#
+
+RUN git clone https://github.com/json-c/json-c.git && \
+	mkdir json-c-build && \
+	cd json-c-build && \
+	cmake ../json-c && \
+	make && \
+	make test && \
+	make USE_VALGRIND=0 test && \
+	make install
+
+
+#
 # JupyterLab
 #
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && \
